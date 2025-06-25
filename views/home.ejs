@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Forum Home</title>
+    <link rel="stylesheet" href="/styles.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+
+    <header>
+        <div class="header-content">
+            <h1>Simple Forum</h1>
+            <nav>
+                <% if (user) { %>
+                    Welcome, <strong><%= user.username %></strong> |
+                    <a href="/profile">Profile</a> |
+                    <a href="/logout">Logout</a>
+                <% } else { %>
+                    <a href="/login">Login</a> |
+                    <a href="/register">Register</a>
+                <% } %>
+            </nav>
+        </div>
+    </header>
+
+    <div class="container">
+        <h2>Discussion Threads</h2>
+
+        <% if (user) { %>
+            <a href="/thread/new" class="btn create-thread-btn">+ Create New Thread</a>
+        <% } %>
+
+        <% if (threads.length === 0) { %>
+            <div class="card">
+                <p style="text-align: center; color: #718096; font-size: 1.1rem;">No threads yet. Be the first to start a discussion!</p>
+            </div>
+        <% } else { %>
+            <% threads.forEach(thread => { %>
+                <div class="post">
+                    <h3><a href="/thread/<%= thread._id %>"><%= thread.title %></a></h3>
+                    <p><%= thread.content.substring(0, 150) %><%= thread.content.length > 150 ? '...' : '' %></p>
+                    <div class="thread-meta">
+                        By <strong><%= thread.author.username %></strong> • <%= new Date(thread.createdAt).toLocaleDateString() %>
+                    </div>
+                </div>
+            <% }) %>
+        <% } %>
+    </div>
+
+</body>
+</html>

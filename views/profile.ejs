@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title><%= user.username %>'s Profile - Simple Forum</title>
+    <link rel="stylesheet" href="/styles.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <h1><a href="/" style="color: #5a67d8; text-decoration: none;">Simple Forum</a></h1>
+            <nav>
+                Welcome, <strong><%= user.username %></strong> |
+                <a href="/profile">Profile</a> |
+                <a href="/logout">Logout</a>
+            </nav>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="profile-header">
+            <h1>👤 <%= user.username %>'s Profile</h1>
+            <p style="font-size: 1.1rem; color: #718096; margin-top: 0.5rem;">📧 <%= user.email %></p>
+            <p style="color: #a0aec0; margin-top: 0.5rem;">Member since <%= new Date(user.createdAt).toLocaleDateString() %></p>
+        </div>
+
+        <div class="profile-section">
+            <h2>📝 Your Threads (<%= threads.length %>)</h2>
+            <% if (threads.length === 0) { %>
+                <p style="color: #718096; text-align: center; padding: 2rem;">You haven't created any threads yet. <a href="/thread/new">Create your first thread!</a></p>
+            <% } else { %>
+                <% threads.forEach(thread => { %>
+                    <div class="post">
+                        <h3><a href="/thread/<%= thread._id %>"><%= thread.title %></a></h3>
+                        <p><%= thread.content.substring(0, 100) %><%= thread.content.length > 100 ? '...' : '' %></p>
+                        <div class="thread-meta">
+                            Created <%= new Date(thread.createdAt).toLocaleDateString() %>
+                        </div>
+                    </div>
+                <% }) %>
+            <% } %>
+        </div>
+
+        <div class="profile-section">
+            <h2>💬 Your Recent Posts (<%= posts.length %>)</h2>
+            <% if (posts.length === 0) { %>
+                <p style="color: #718096; text-align: center; padding: 2rem;">You haven't made any posts yet. Join a discussion!</p>
+            <% } else { %>
+                <% posts.forEach(post => { %>
+                    <div class="post">
+                        <% if (post.threadId) { %>
+                            <p style="color: #5a67d8; font-weight: 600; margin-bottom: 0.5rem;">
+                                In thread: <a href="/thread/<%= post.threadId._id %>"><%= post.threadId.title %></a>
+                            </p>
+                        <% } else { %>
+                            <p style="color: #e53e3e; font-weight: 600; margin-bottom: 0.5rem;">(Thread deleted)</p>
+                        <% } %>
+                        <p style="margin-bottom: 0.5rem; line-height: 1.6;">"<%= post.content %>"</p>
+                        <div class="thread-meta">
+                            Posted <%= new Date(post.createdAt).toLocaleDateString() %>
+                        </div>
+                    </div>
+                <% }) %>
+            <% } %>
+        </div>
+
+        <div style="text-align: center; margin-top: 2rem;">
+            <a href="/" class="btn">← Back to Home</a>
+        </div>
+    </div>
+</body>
+</html>

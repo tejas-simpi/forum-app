@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Edit Thread - Simple Forum</title>
+    <link rel="stylesheet" href="/styles.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <h1><a href="/" style="color: #5a67d8; text-decoration: none;">Simple Forum</a></h1>
+            <nav>
+                <a href="/profile">Profile</a> |
+                <a href="/logout">Logout</a>
+            </nav>
+        </div>
+    </header>
+
+    <div class="container">
+        <div style="max-width: 800px; margin: 0 auto;">
+            <h1>✏️ Edit Thread</h1>
+            <p style="color: #718096; text-align: center; margin-bottom: 2rem;">Make changes to your thread</p>
+            
+            <form action="/thread/<%= thread._id %>/update" method="POST">
+                <input name="title" value="<%= thread.title %>" required style="font-size: 1.1rem; font-weight: 600;">
+                <textarea name="content" required style="min-height: 200px;"><%= thread.content %></textarea>
+                <div style="display: flex; gap: 1rem; justify-content: center;">
+                    <button type="submit" style="background: linear-gradient(135deg, #5a67d8, #667eea);">💾 Save Changes</button>
+                    <a href="/thread/<%= thread._id %>" class="btn" style="background: linear-gradient(135deg, #718096, #a0aec0);">Cancel</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+</body>
+</html>
