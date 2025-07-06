@@ -20,3 +20,14 @@ A full-stack forum web application where users can create threads, post replies,
 - **Authentication**: Express-session & bcrypt
 - **Templating**: EJS
 
+## 🏢 Structure
+  forum-app/
+│
+├── models/             # Mongoose models (User, Thread, Post)
+├── routes/             # Express routes (auth, threads, posts)
+├── views/              # EJS templates (home, login, thread, post, etc.)
+├── public/             # Static files (CSS, images)
+├── middleware/         # Authentication checks
+├── server.js           # Main Express server
+├── package.json
+└── .env
